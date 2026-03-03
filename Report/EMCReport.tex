@@ -24,25 +24,35 @@
 \maketitle
 
 \begin{abstract}
-This paper analyses the differences between how AI and humans react to unexpected situations that force a reliance on past experiences, logical leaps, and guesswork. Specifically, when neural networks, Large Language Models, and humans are tasked with classifying images into classes that poorly or do not at all reflect the contents of the images. It found that\dots
+This paper analyses the differences between how AI and humans react to unexpected situations that force a reliance on past experiences, creative leaps, and guesswork. Specifically, when neural networks, Large Language Models, and humans are tasked with classifying images into classes that poorly or do not at all reflect the contents of the images. It found that\dots
 \end{abstract}
 
 \tableofcontents
 
 \section{Introduction}
-The human brain is an incredibly complicated example of biological machinery. It can store information and apply it to a variety of situations to efficiently solve problems, complete tasks, understand the world around them, and adapt to change. This allows humans to not only learn from a guide, but from their own mistakes and past experiences. Neural networks are a subcategory of AI that attempts to recreate this behaviour using calculus and matrices. This report aims to discover the differences between how the human brain and neural networks react to unpredictable situations they are ill-equipped to handle, specifically classifying images where none of the categories accurately reflect the image.
+The human brain is an incredibly complicated example of biological machinery. It can store information and apply it to a variety of situations to efficiently solve problems, complete tasks, understand the world around them, and adapt to change. This allows humans to not only learn from a guide, but from their own mistakes and past experiences.
+
+Neural networks are a subcategory of AI that attempts to recreate this behaviour using code, calculus and matrices. Programs are great at following instructions to get from an expected input to an expected output. However, in the real world, not every piece of data can be anticipated.
+
+This research aims to find the similarities and difference between how humans, neural networks, and Large Language Models react to unexpected inputs through an image classification task with limited class options.
 \subsection{Neural Networks}
 \begin{figure}[hb]
     \centering
     \includegraphics[width=0.75\linewidth]{Images/neuralNet.jpg}
-    \caption{A diagram on a neural network with four layers of nodes. $\Sigma$ represents the summation function and $f$ represents the activation function. Taken from \url{https://www.knime.com/blog/a-friendly-introduction-to-deep-neural-networks}}
+    \caption{A diagram of a neural network with four layers of nodes. $\Sigma$ represents the summation function and $f$ represents the activation function. Taken from \url{https://www.knime.com/blog/a-friendly-introduction-to-deep-neural-networks}}
     \label{fig:netimage}
 \end{figure}
-\noindent Neural networks are a branch of AI that mimic the structure of neurons in the human brain. They consist of layers of nodes that can receive multiple inputs, process, and output a real number [Fig. \ref{fig:netimage}]. As the machine learns, its outputs get closer and closer to a predicted output.  Each node always performs the same process with the sum of its inputs (the summation function), but the influence that node has on the final output changes as the machine learns. This change in output is from changing the weight of each node (the process of applying the weight to the output is called the activation function). The way the network decides the weight of a node is based on its learning paradigm. The paradigm this research focuses on is supervised learning, but other paradigms such as unsupervised or reinforcement learning exist \cite{lampropoulos2015machine}.
+\noindent Neural networks are a branch of AI that uses algorithms to mimic the structure of neurons in the human brain. 
+
+They consist of layers of nodes that can receive multiple numerical inputs and perform mathematical functions on them [Fig. \ref{fig:netimage}]. Each node applies different weights to each of its inputs, sums them, add a bias, then performs a non-linear activation function to allow the network to learn non-linear relationships. The weights and biases determine how much each node can affect the final output, and is what changes as the network learns.
+
+The way the network decides the weight of a node is based on its learning paradigm. The paradigm used in this research is supervised learning with backpropagation, but other paradigms such as unsupervised or reinforcement learning exist \cite{lampropoulos2015machine}.
+
+Supervised learning with backpropagation is where inputs come paired with an expected output, and the network aims to get results as close to the expected output as possible. It does this by calculating a loss function to measure the difference between its outputs and the expected outputs, using calculus' chain rule to find the minimum point of this function, and updating the weights and biases to get closer to this value.
 
 
 \subsection{Image Recognition}
-Image recognition is an application of machine learning and neural networks where images are classified into categories based on the contents of the image.
+Image recognition is an application of neural networks where images are classified into categories based on the contents of the image.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.9\linewidth]{Images/supervisedImages.png}
@@ -50,7 +60,7 @@ Image recognition is an application of machine learning and neural networks wher
     \label{fig:supimages}
 \end{figure}
 
-Supervised learning is a common paradigm for image recognition \cite{krizhevsky2012imagenet}. This is because it trains the neural network by generalising connections between characteristics found in the data and the label the data has been manually given by humans \ref{fig:CIFARImages}[Fig. \ref{fig:supimages}], and changing the weights of the nodes accordingly. This suits image recognition as, during training, the neural network can generalise the links between characteristics it finds within the image and the given labels, and use these generalisations to make predictions.
+Supervised learning is a common paradigm for image recognition \cite{krizhevsky2012imagenet}. This is because images come with labels, which are the expected outputs used by the algorithm. Some examples of images with labels can be seen in [Fig. \ref{fig:supimages}]. This suits image recognition as, during training, the neural network can generalise the links between characteristics it finds within the image and the given labels by changing its nodes' weights and biases, and use these generalisations to make predictions.
 
 
 \subsection{Large Language Models}
@@ -60,14 +70,23 @@ Large Language Models (LLMs) are a subsection of Artificial Intelligence that ha
 \subsection{Zero-Shot Inference}
 Zero-shot inference is where a neural network is given a task it has not been explicitly trained to do \cite{mehta2025generalizationtheoryzeroshotprediction}. In image classification, this means forcing the network to classify images into categories it has not been specifically trained to identify.
 
-As LLMs are trained on vast amounts of data, it is unlikely that the network is completely unfamiliar with the categories it is given. Here, "zero-shot" refers to providing the LLM with a prompt that contains no examples for what fits into each category, nor does it include descriptions of features to look out for. It is usually only given the category names, and the images to classify.
+As LLMs are trained on vast amounts of data, it is unlikely that the network is completely unfamiliar with the categories it is given. Here, "zero-shot" refers to providing the LLM with a prompt that contains no examples for what fits into each category, nor does it include descriptions of features to look out for. It is usually only given the category names, and the images to classify. This means that the LLM must create its own method for classifying the images.
 
 
 \section{Literature Review}
-\textbf{Generalisation in humans and deep neural networks \cite{geirhos2018generalisation}} --
-Geirhos et al. aimed to compare the success rate of humans against deep neural networks when tasked with recognising distorted images. These distortions mainly focussed on changing the colours or amount of noise in the image. They found that humans were mostly more accurate on average at identifying distorted images than the networks for non-colour related distortions, where the networks always had a higher average accuracy. They also found that human participants’ responses were distributed almost entirely equally, whereas the networks showed increasing biases towards certain categories as the distortions got stronger.
+\begin{figure}[hb]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/geirhosDistorts.png}
+    \caption{Example images used by Geirhos et al. \cite{geirhos2018generalisation} of a bird across all distortions types used. From left to right, image manipulations are: colour (undistorted), greyscale, low contrast, high-pass, low-pass (blurring), phase noise, power equalisation. Bottom row: opponent colour, rotation, Eidolon I, II and III, additive uniform noise, salt-and-pepper noise.}
+    \label{fig:geirhosDistorts}
+\end{figure}
+\noindent\textbf{Generalisation in humans and deep neural networks \cite{geirhos2018generalisation}} --
+Geirhos et al. aimed to compare the success rate of humans against deep neural networks when tasked with recognising distorted images. These distortions mainly focussed on changing the colours or amount of noise in the image [Fig. \ref{fig:geirhosDistorts}]. They found that humans were mostly more accurate on average at identifying distorted images than the networks for non-colour related distortions, where the networks always had a higher average accuracy. They also found that human participants’ responses were distributed almost entirely equally, whereas the networks showed increasing biases towards certain categories as the distortions got stronger.
 
-I have included 2 distortions that were not used in this study: kaleidoscope and liquefy. These distortions, unlike the distortions used by Geirhos et al., change the shape of the object in the image. 
+I have included 2 distortions that were not used in this study: kaleidoscope and liquefy. These distortions, unlike the distortions used by Geirhos et al., change the shape of the object in the image.
+
+[SOMETHING ABOUT TRANSFER LEARNING]
+[SOMETHING ABOUT ZERO-SHOT??]
 
 
 \section{Methodology}
@@ -78,11 +97,11 @@ The classes form the foundation for how every area of this research is structure
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.75\linewidth]{Images/CIFARImages.png}
-    \caption{Example images for each class in the CIFAR-10 dataset. Taken from: \url{https://www.cs.toronto.edu/~kriz/cifar.html}}
+    \caption{Example images for each class in the CIFAR-10 dataset. Taken from: \cite{CIFAR}}
     \label{fig:CIFARImages}
 \end{figure}
 
-Some of the most popular datasets include ImageNet, CIFAR-10, CIFAR-100, CALTECH-101, and CALTECH-256 \cite{bestDatasets}. Out of thee datasets, the only one with a low enough number of classes is CIFAR-10, one of the most popular datasets for research into image classification \cite{krizhevsky2009learning}. It has 10 classes of common objects and 60000 images, so perfectly fits my criteria [Fig. \ref{fig:CIFARImages}].
+Some of the most popular datasets \cite{bestDatasets} include ImageNet \cite{ImageNet}, CIFAR-10 and CIFAR-100 \cite{CIFAR}, CALTECH-101 \cite{li_andreeto_ranzato_perona_2022}, and CALTECH-256 \cite{griffin_holub_perona_2022}. Out of thee datasets, the only one with a low enough number of classes is CIFAR-10, one of the most popular datasets for research into image classification \cite{krizhevsky2009learning}. It has 10 classes of common objects and 60000 images, so perfectly fits my criteria [Fig. \ref{fig:CIFARImages}].
 
 
 \subsection{The Test Data}
@@ -177,7 +196,7 @@ I used Keras because of its extensive documentation that guided me through every
 I chose to create a Convolutional Neural Network because the convolutional layer, that is exclusive to CNNs, lends itself well to image recognition as it mimics the human process of looking for recognisable features \cite{rawat2017CNN}.
 
 \subsection{Retraining Publicly Available Neural Networks}
-I have retrained the InceptionV3 \cite{szegedy2014goingdeeperconvolutions} and ConvNext \cite{liu2022convnet2020s} neural networks using transfer learning. Both neural networks were originally trained on ImageNet \cite{ImageNet}, an image dataset with over 14 million images and 100,000 categories.
+I have retrained the VGG16 \cite{simonyan2015deepconvolutionalnetworkslargescale}, ConvNext \cite{liu2022convnet2020s}, and CLIP \cite{radford2021learningtransferablevisualmodels} neural networks using transfer learning. They were originally trained on ImageNet \cite{ImageNet}, an image dataset with over 14 million images and 100,000 categories.
 
 Transfer learning is where only the final layer of the neural network is changed from its initial training, to after it has been retrained. This means that most of the nodes, weights, and functions stay the same, but the final output is changed. Int his case, this means that instead being able to classify images into one of 100,00 categories, it can only classify into the 10 CIFAR-10 categories with very little training needing to be done.
 
@@ -185,13 +204,13 @@ I chose these neural networks because they were the only models in Keras' librar
 
 
 \subsection{Using Zero-Shot Inference with Large Language Models}
-I provided 4 web-based Large Language Models (ChatGPT, Gemini, Copilot, and Claude) and 1 Python-based Vision-Language Model (CLIP) with the following prompt and attached the images alongside it.
+I provided 4 web-based Large Language Models (ChatGPT \cite{ChatGPT}, Gemini \cite{Gemini}, Copilot \cite{Copilot}, and Claude \cite{Claude}) with the following prompt and attached the images alongside it.
 \begin{quote}
     You will be given 10 images, and you must classify these images into a category based on the contents of the image. These categories are: airplane, automobile, bird, cat, deer, dog, frog, horse, ship, truck. For some images, none of these categories may seem suitable, but you must select from one of these categories, and give a reason behind your choice. Please also rate how well your chosen category reflects the contents of the image, between 1 and 10 inclusive. The images are attached.
 \end{quote}
 
 \subsection{Survey}
-I created a survey using Google Forms and sent it out via friends of friends and online survey swapping websites. The respondents were asked the same three questions for each of the 10 images, with the images being in the order shown above [Fig. \ref{fig:testImages}]. The questions and multiple-choice options were as follows.
+I created a survey using Google Forms and sent it out via friends of friends and online survey swapping websites to 71 people, with 69 of them answering the validation question correctly. The respondents were asked the same three questions for each of the 10 images, with the images being in the order shown above [Fig. \ref{fig:testImages}]. The questions and multiple-choice options were as follows.
 \begin{enumerate}
     \item What category would you select for this image? \\ Options: Airplane; Automobile; Bird; Cat; Deer; Dog; Frog; Horse; Ship; Truck.
     \item Why did you pick that category? \\ Options: It fit the image the best; Random choice; Just chose the first/last/other option; Drawn to that category; Don't know; Other (Custom responses).
@@ -201,23 +220,28 @@ I created a survey using Google Forms and sent it out via friends of friends and
 \subsection{Modelling the Results}
 I used the programming language R to process and model the results of my neural network, the LLMs, and the survey separately.
 
-I omitted all data that failed to identify the pigeon as a bird. 
+I omitted all data that failed to identify the pigeon as a bird, then used the remaining data to create all the graphs in section 4.
 
-I plotted the categories chosen for each image as\dots
-I plotted the confidence ratings for each image as\dots
-I also plotted overall confidence ratings for the neural networks, LLMs, and humans.
+
 
 \section{Results}
 \subsection{Neural Networks}
+\subsection{Large Language Models}
 \subsection{Humans}
 \subsection{Comparison}
 
 \section{Conclusion}
-This research compared how neural networks and humans react to the unexpected through observing the patterns that form when tasked with classifying images into unsuitable categories. The results showed that\dots
+This research compared how neural networks and humans react to the unexpected through observing the patterns that form when tasked with classifying images into unsuitable categories. The results showed that neural networks do not react to unexpected data in a similar fashion to humans. Neural networks are only able to apply the same functions to all inputs, regardless of whether it is expected or not. On the other hand, humans are able to change their approach by applying creativity to their thought process, such as using outside knowledge about the task to inform their decisions.
 
-This research is important because it demonstrates that training/education is vital for both AI and humans in order to ensure that they are well-equipped to handle the situations/prompts they are given and aren't left guessing like they were forced to in this study. 
+The results also showed that Large Language Models have the potential to employ creative techniques to solve unexpected problems. They are quite often able to recognise when more creative techniques need to be employed over simple ones, but are less often able to actually employ one. Instead, in these cases, they turn to arbitrary and random solutions.
 
-This research also shows how important the ability to make leaps in logic is when the objectively best approach to a problem cannot be achieved in th situation at hand.
+\vspace{3mm}
+\noindent This research is important because it demonstrates that training/education is vital for both AI and humans in order to ensure that they are well-equipped to handle the situations/prompts they are given and aren't left guessing like they were forced to in this study. 
+
+This research also shows how important the ability to creatively create new logic is when the objectively best approach to a problem cannot be achieved in the situation at hand.
+
+\vspace{3mm}
+\noindent This research could be extended with out of distribution detection, a process that is able to identify when inputs are not expected by the neural network. This would give the neural networks an opportunity to recognise when it is not able to handle the given task, and the user an opportunity to change their approach.
 
 \section{References}
 \printbibliography[heading=none]
