@@ -3,6 +3,7 @@
 \usepackage[a4paper]{geometry}
 \usepackage{comment}
 \usepackage{graphicx}
+\usepackage{wrapfig}
 \usepackage[ natbib=true, style=numeric,sorting=none,citestyle=numeric-comp]{biblatex}
 \addbibresource{ref.bib}
 \usepackage{subcaption}
@@ -15,21 +16,30 @@
     urlcolor=black
 }
 
-\title{Machin vs. Machine: Comparing Humans' Ability Against AIs' Ability to Classify Images Into Unsuitable Categories}
+\title{Machin vs. Machine: \\ How Do Neural Networks React to the Unexpected?}
 \author{Amelie Machin}
 \date{2026}
 
 \begin{document}
 
+\null  % Empty line
+\nointerlineskip  % No skip for prev line
+\vfill
+\let\snewpage \newpage
+\let\newpage \relax
 \maketitle
-
 \begin{abstract}
-This paper analyses the differences between how AI and humans react to unexpected situations that force a reliance on past experiences, creative leaps, and guesswork. Specifically, when neural networks, Large Language Models, and humans are tasked with classifying images into classes that poorly or do not at all reflect the contents of the images. It found that\dots
+\noindent This paper analyses the differences between how AI and humans react to unexpected situations that force a reliance on past experiences, creative leaps, and guesswork. Specifically, when neural networks, Large Language Models, and humans are tasked with classifying images into classes that poorly or do not at all reflect the contents of the images. It found that the fact that neural networks lack the ability to make creative leaps or guesses holds it back greatly from being able to process unexpected data in a meaningful or effective way. It also found that Large Language Models are able to recognise when creativity is needed to solve a problem, but are not always able to make the leaps in logic that is required to form creative solutions, and instead rely a bit too often on guesswork.
 \end{abstract}
+\let \newpage \snewpage
+\vfill 
+\break % page break
 
 \tableofcontents
+\newpage
 
 \section{Introduction}
+\subsection{Background}
 The human brain is an incredibly complicated example of biological machinery. It can store information and apply it to a variety of situations to efficiently solve problems, complete tasks, understand the world around them, and adapt to change. This allows humans to not only learn from a guide, but from their own mistakes and past experiences.
 
 Neural networks are a subcategory of AI that attempts to recreate this behaviour using code, calculus and matrices. Programs are great at following instructions to get from an expected input to an expected output. However, in the real world, not every piece of data can be anticipated.
@@ -84,9 +94,6 @@ As LLMs are trained on vast amounts of data, it is unlikely that the network is 
 Geirhos et al. aimed to compare the success rate of humans against deep neural networks when tasked with recognising distorted images. These distortions mainly focussed on changing the colours or amount of noise in the image [Fig. \ref{fig:geirhosDistorts}]. They found that humans were mostly more accurate on average at identifying distorted images than the networks for non-colour related distortions, where the networks always had a higher average accuracy. They also found that human participants’ responses were distributed almost entirely equally, whereas the networks showed increasing biases towards certain categories as the distortions got stronger.
 
 I have included 2 distortions that were not used in this study: kaleidoscope and liquefy. These distortions, unlike the distortions used by Geirhos et al., change the shape of the object in the image.
-
-[SOMETHING ABOUT TRANSFER LEARNING]
-[SOMETHING ABOUT ZERO-SHOT??]
 
 
 \section{Methodology}
@@ -225,15 +232,69 @@ I omitted all data that failed to identify the pigeon as a bird, then used the r
 
 
 \section{Results}
-\subsection{Neural Networks}
-\subsection{Large Language Models}
+\subsection{General Comparisons}
+
+It can be seen from the grouped bar chart [Fig. \ref{fig:catCount}] that:
+\begin{enumerate}
+    \item Humans were the most spread out across the categories of the sources.
+    \item The neural networks tended towards the inanimate categories -- such as airplane or automobile -- more than the other sources.
+    \item The LLMs are quite spread out across the categories.
+\end{enumerate}
+
+\begin{figure}[hbt]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/CatCount.png}
+    \caption{Grouped bar chart showing the number of times each source (humans, LLMs, and neural networks) chose each category as a majority for each of the 10 images.}
+    \label{fig:catCount}
+\end{figure}
+
+\newpage
 \subsection{Humans}
-\subsection{Comparison}
+\begin{wrapfigure}{l}{0.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{Images/catssandwich.png}
+    \caption{Number of humans who chose each category against the average confidence for the sandwich image [Fig. \ref{fig:sandwich}].}
+    \label{fig:catssandwich}
+\end{wrapfigure}
+Even for each image, the choices were very spread out. Every image had at least 6 different categories chosen by somebody, except for train [Fig. \ref{fig:train}] with 3 categories, and of course pigeon [Fig. \ref{fig:pigeon}].
+
+The answer to why this is lies in the reasons given for each response. Some notable responses behind the graph on the left [Fig. \ref{fig:catssandwich}] include: "Food gives you energy, energy makes you move, automobiles move", "Can look at it as something served on a ship as food", and "I pictured this as a horse burger". These responses show how the least-chosen classes where chosen based on creative and unusual reasoning that other people did not consider.
+
+Despite this, most responses mentioned making the choice purely based off of chance. Especially the dog category, where the majority of the respondents who categorised the sandwich as a dog said the choice was purely random. I, however, don't believe the choice to pick dog was by pure random chance, given that it was the tied first choice option, with the majority of the other options having less than half of the responses. Whether this did happen by chance, or because respondents were unwilling to share their actual reasons, or because of some subconscious bias, or some other reason; I am not sure.
+
+\vspace{3mm}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/catstrain.png}
+    \caption{Number of humans who chose each category against the average confidence for the train image [Fig. \ref{fig:train}].}
+    \label{fig:catstrain}
+\end{figure}
+\noindent None of the images contained any correlation between number of humans who chose each category against average confidence, except for the train image. This can be seen in [Fig. \ref{fig:catstrain}]
+
+
+\subsection{Neural Networks}
+Neural networks can only use feature extraction from the images to categorise the image, not use any creativity or unusual reasoning. Airplanes and automobiles are man-made objects with no particular set colour, shape, or size. This means that it is likely that the neural networks have learned of many different features that could correspond to airplanes or cars, rather than more specific features that other categories may have, causing the neural networks to have a bias towards those categories when the specific features of the other categories are not present.
+
+\vspace{3mm}
+Therefore, the fact that neural networks lack the means to effectively handle unexpected data as they are unable to deviate from their learnt functions and be creative -- like humans can -- forces the network to instead rely on biases learned from the training data. This causes unsuitable and meaningless results that do not reflect the results a human produces with the same data.
+
+
+
+\subsection{Large Language Models}
+The Large Language Models were similarly spread out across the categories as the humans were, but the reasons showed this was for quite a different reason.
+
+While people seemed split between either creative logic or random choices, the LLMs seemed split between either feature extraction or random choices, only occasionally being able to produce complex reasons behind categories. This presents LLMs as a halfway point between neural networks and humans in terms of creativity and complex thought.
+
+Some LLMs performed better than others. For example, ChatGPT was able to recognise that feature extraction was not a good enough technique for this task, but was not able to create creative techniques, instead relying on random choices for almost every image. This is in contrast to Google's Gemini, which employed more human-like thought processes. One example is for the abstract painting [Fig. \ref{fig:abstract}]: "The bright colors and layered texture are reminiscent of the vibrant feathers found on tropical birds.". This shows that LLMs have potential for more complex and creative solutions to problems, but are not currently at a human level.
+
+\vspace{3mm}
+\noindent Therefore, LLMs have the training to be able to recognise when it is faced with unexpected data and that a different technique to what it knows needs to be employed. However, utilising creative and complex solutions came with varying degrees of success for different models on different images. This places LLMs firmly between the low bar of neural networks and the high bar of human ability.
+
 
 \section{Conclusion}
-This research compared how neural networks and humans react to the unexpected through observing the patterns that form when tasked with classifying images into unsuitable categories. The results showed that neural networks do not react to unexpected data in a similar fashion to humans. Neural networks are only able to apply the same functions to all inputs, regardless of whether it is expected or not. On the other hand, humans are able to change their approach by applying creativity to their thought process, such as using outside knowledge about the task to inform their decisions.
+This research compared how neural networks and humans react to the unexpected through observing the patterns that form when tasked with classifying images into unsuitable categories. The results showed that neural networks do not react to unexpected data in a similar fashion to humans. Neural networks are only able to apply the same functions to all inputs, regardless of whether it is expected or not. On the other hand, humans are able to change their approach by applying creativity to their thought process, such as using outside knowledge about the task to inform their decisions. This causes the neural networks to produce meaningless results which do not reflect the inputted data.
 
-The results also showed that Large Language Models have the potential to employ creative techniques to solve unexpected problems. They are quite often able to recognise when more creative techniques need to be employed over simple ones, but are less often able to actually employ one. Instead, in these cases, they turn to arbitrary and random solutions.
+The results also showed that Large Language Models have the potential to employ creative techniques to solve unexpected problems. They are quite often able to recognise when more creative techniques need to be employed over simple ones, but are less often able to actually employ one. Instead, in these cases, they turn to arbitrary and random solutions to prevent themselves from straying too far from logic.
 
 \vspace{3mm}
 \noindent This research is important because it demonstrates that training/education is vital for both AI and humans in order to ensure that they are well-equipped to handle the situations/prompts they are given and aren't left guessing like they were forced to in this study. 
@@ -241,7 +302,7 @@ The results also showed that Large Language Models have the potential to employ 
 This research also shows how important the ability to creatively create new logic is when the objectively best approach to a problem cannot be achieved in the situation at hand.
 
 \vspace{3mm}
-\noindent This research could be extended with out of distribution detection, a process that is able to identify when inputs are not expected by the neural network. This would give the neural networks an opportunity to recognise when it is not able to handle the given task, and the user an opportunity to change their approach.
+\noindent This research could be extended with out of distribution detection, a process that is able to identify when inputs are not expected by the neural network. This would give the neural networks an opportunity to recognise when it is not able to handle the given task, and the user an opportunity to change their approach or implement different approaches into the neural network.
 
 \section{References}
 \printbibliography[heading=none]
@@ -259,6 +320,6 @@ This research also shows how important the ability to creatively create new logi
 \end{enumerate}
 
 \subsection{Code}
-[github repo link once I've sorted out the problems]
+\url{https://github.com/YellowAmelie109/EMC}
 
 \end{document}
